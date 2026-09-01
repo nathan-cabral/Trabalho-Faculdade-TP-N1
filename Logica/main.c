@@ -1,4 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+void limparTela() {
+    system("cls");
+}
+
+void pausar() {
+    printf("\n");
+    system("pause");
+}
 
 int obterValorM() {
     int M;
@@ -98,16 +108,24 @@ int main() {
     int M = 0, N = 0;
     int entryM = 0, entryN = 0;
 
-    int menuEscolha;
+    int menuEscolha = -1;
     int escalar;
     char escolhaListagem;
     char escolhaVetor;
 
-    MenuPrincipal();
-    printf("Escolha uma opcao: ");
-    scanf("%d", &menuEscolha);
-
     while (menuEscolha != 0) {
+        limparTela();
+        MenuPrincipal();
+
+        printf("Escolha uma opcao: ");
+        scanf("%d", &menuEscolha);
+
+        if (menuEscolha == 0) {
+            break;
+        }
+
+        limparTela();
+
         switch (menuEscolha) {
             case 1:
                 M = obterValorM();
@@ -122,7 +140,7 @@ int main() {
                 break;
 
             case 3:
-                printf("\n+-------------------------------------------------+\n");
+                printf("+-------------------------------------------------+\n");
                 printf("| LISTAR VETOR                                    |\n");
                 printf("+-------------------------------------------------+\n");
                 printf("Escolha o vetor que deseja listar [M/N]: ");
@@ -149,9 +167,9 @@ int main() {
 
             case 4:
                 if (entryM == 0 || entryN == 0) {
-                    printf("\nErro: crie os vetores M e N antes de soma-los.\n");
+                    printf("Erro: crie os vetores M e N antes de soma-los.\n");
                 } else if (M != N) {
-                    printf("\nErro: os vetores precisam ter o mesmo tamanho.\n");
+                    printf("Erro: os vetores precisam ter o mesmo tamanho.\n");
                     printf("M possui %d elementos e N possui %d elementos.\n", M, N);
                 } else {
                     somarVetores(vetorM, vetorN, vetorSoma, M);
@@ -162,20 +180,22 @@ int main() {
                 break;
 
             case 5:
-                printf("\n+-------------------------------------------------+\n");
+                printf("+-------------------------------------------------+\n");
                 printf("| MULTIPLICAR VETOR POR ESCALAR                   |\n");
                 printf("+-------------------------------------------------+\n");
                 printf("Escolha o vetor [M/N]: ");
                 scanf(" %c", &escolhaVetor);
 
-                printf("Digite o valor do escalar: ");
-                scanf("%d", &escalar);
-
                 if (escolhaVetor == 'M' || escolhaVetor == 'm') {
                     if (entryM == 0) {
                         printf("\nO vetor M ainda nao foi preenchido.\n");
                     } else {
-                        multiplicarVetorPorEscalar(vetorM, vetorEscalar, M, escalar);
+                        printf("Digite o valor do escalar: ");
+                        scanf("%d", &escalar);
+
+                        multiplicarVetorPorEscalar(
+                            vetorM, vetorEscalar, M, escalar
+                        );
 
                         printf("\nVetor M multiplicado por %d com sucesso!\n", escalar);
                         listarVetor(vetorEscalar, M, 'E');
@@ -184,7 +204,12 @@ int main() {
                     if (entryN == 0) {
                         printf("\nO vetor N ainda nao foi preenchido.\n");
                     } else {
-                        multiplicarVetorPorEscalar(vetorN, vetorEscalar, N, escalar);
+                        printf("Digite o valor do escalar: ");
+                        scanf("%d", &escalar);
+
+                        multiplicarVetorPorEscalar(
+                            vetorN, vetorEscalar, N, escalar
+                        );
 
                         printf("\nVetor N multiplicado por %d com sucesso!\n", escalar);
                         listarVetor(vetorEscalar, N, 'E');
@@ -198,11 +223,10 @@ int main() {
                 printf("\nOpcao invalida. Tente novamente.\n");
         }
 
-        MenuPrincipal();
-        printf("Escolha uma opcao: ");
-        scanf("%d", &menuEscolha);
+        pausar();
     }
 
+    limparTela();
     printf("\nPrograma encerrado. Ate mais!\n");
 
     return 0;

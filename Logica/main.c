@@ -1,114 +1,209 @@
-#include<stdio.h>
+#include <stdio.h>
 
-int obterValorM(){
+int obterValorM() {
     int M;
-    printf("Quantidade de elementos M (max: 30): ");
-    scanf("%d",&M);
-    while(M<1 || M>30){
+
+    printf("\n+-------------------------------------------------+\n");
+    printf("| LEITURA DO VETOR M                              |\n");
+    printf("+-------------------------------------------------+\n");
+    printf("Quantidade de elementos de M (maximo 30): ");
+    scanf("%d", &M);
+
+    while (M < 1 || M > 30) {
         printf("Valor invalido. Digite um valor entre 1 e 30: ");
-        scanf("%d",&M);
+        scanf("%d", &M);
     }
+
     return M;
 }
 
-void lerVetor(int vetor[], int tamanho){
-    for(int i=0;i<tamanho;i++){
-        printf("Vetor M[%d]= ",i);
-        scanf("%d",&vetor[i]);
-    }
-}
-
-int obterValorN(){
+int obterValorN() {
     int N;
-    printf("Quantidade de elementos N (max: 20): ");
-    scanf("%d",&N);
-    while(N<1 || N>20){
+
+    printf("\n+-------------------------------------------------+\n");
+    printf("| LEITURA DO VETOR N                              |\n");
+    printf("+-------------------------------------------------+\n");
+    printf("Quantidade de elementos de N (maximo 20): ");
+    scanf("%d", &N);
+
+    while (N < 1 || N > 20) {
         printf("Valor invalido. Digite um valor entre 1 e 20: ");
-        scanf("%d",&N);
+        scanf("%d", &N);
     }
+
     return N;
 }
 
-void listarVetor(int vetor[],int tamanho){
-    for(int i=0;i<tamanho;i++){
-        printf("%d\n",vetor[i]);
+void lerVetor(int vetor[], int tamanho, char nomeVetor) {
+    printf("\nInforme os elementos do vetor %c:\n", nomeVetor);
+    printf("---------------------------------------------------\n");
+
+    for (int i = 0; i < tamanho; i++) {
+        printf("%c[%d] = ", nomeVetor, i);
+        scanf("%d", &vetor[i]);
+    }
+
+    printf("---------------------------------------------------\n");
+    printf("Vetor %c armazenado com sucesso!\n", nomeVetor);
+}
+
+void listarVetor(int vetor[], int tamanho, char nomeVetor) {
+    printf("\n+-------------------------------------------------+\n");
+    printf("| ELEMENTOS DO VETOR %c                            |\n", nomeVetor);
+    printf("+-------------------------------------------------+\n");
+
+    for (int i = 0; i < tamanho; i++) {
+        printf("%c[%d] = %d\n", nomeVetor, i, vetor[i]);
+    }
+
+    printf("+-------------------------------------------------+\n");
+}
+
+void somarVetores(int vetorM[], int vetorN[], int vetorSoma[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        vetorSoma[i] = vetorM[i] + vetorN[i];
     }
 }
 
-void MenuPrincipal(){
-    printf(
-    "\n"
-    "===============================================================\n"
-    "                       MENU PRINCIPAL\n"
-    "===============================================================\n"
-    " [1] Ler primeiro vetor (M <= 30)\n"
-    "     - Informar quantidade e elementos\n\n"
-
-    " [2] Ler segundo vetor (N <= 20)\n"
-    "     - Informar quantidade e elementos\n\n"
-
-    " [3] Listar elementos de um vetor\n\n"
-
-    " [4] Somar dois vetores\n"
-    "     - Gerar terceiro vetor com a soma dos elementos\n\n"
-
-    " [5] Multiplicar vetor por escalar\n"
-    "     - Gerar novo vetor resultante\n\n"
-
-    " [0] Sair\n"
-    "===============================================================\n");
-
+void multiplicarVetorPorEscalar(int vetorOriginal[],int vetorResultado[],int tamanho,int escalar){
+    for (int i = 0; i < tamanho; i++) {
+        vetorResultado[i] = vetorOriginal[i] * escalar;
+    }
 }
 
+void MenuPrincipal() {
+    printf(
+        "\n"
+        "===============================================================\n"
+        "                       MENU PRINCIPAL\n"
+        "===============================================================\n"
+        " [1] Ler primeiro vetor (M <= 30)\n"
+        "     - Informar quantidade e elementos\n\n"
+        " [2] Ler segundo vetor (N <= 20)\n"
+        "     - Informar quantidade e elementos\n\n"
+        " [3] Listar elementos de um vetor\n\n"
+        " [4] Somar dois vetores\n"
+        "     - Gerar terceiro vetor com a soma dos elementos\n\n"
+        " [5] Multiplicar vetor por escalar\n"
+        "     - Gerar novo vetor resultante\n\n"
+        " [0] Sair\n"
+        "===============================================================\n"
+    );
+}
 
-int main(){
-    int vetorM[30],vetorN[20];
-    int entryM=0,entryN=0;
-    int M=0,N=0;
+int main() {
+    int vetorM[30], vetorN[20];
+    int vetorSoma[30], vetorEscalar[30];
+
+    int M = 0, N = 0;
+    int entryM = 0, entryN = 0;
+
     int menuEscolha;
-    char escolhaLisatgem;
+    int escalar;
+    char escolhaListagem;
+    char escolhaVetor;
+
     MenuPrincipal();
     printf("Escolha uma opcao: ");
-    scanf("%d",&menuEscolha);
-    while(menuEscolha!=0){
-        switch(menuEscolha){
-        case 1:
-            M=obterValorM();
-            lerVetor(vetorM,M);
-            entryM++;
-            break;
-        case 2:
-            N=obterValorN();
-            lerVetor(vetorN,N);
-            entryN++;
-            break;
-        case 3: 
-            printf("\n--- LISTAR VETOR ---\n");
-            printf("Escolha o vetor que deseja listar [M/N]: "); 
-            scanf(" %c",&escolhaLisatgem);
-            if(escolhaLisatgem=='M'){
-                if(entryM==0){
-                    printf("esse vetor ainda nao existe, crie-o escolhendo 1 no menu");
-                }else{
-                    listarVetor(vetorM,M);
-                }
-            }else if(escolhaLisatgem=='N'){
-                if(entryN==0){
-                    printf("esse vetor ainda nao existe, crie-o escolhendo 2 no menu");
-                }else{
-                    listarVetor(vetorN,N);
-                }
-            }
-            break;
-        
+    scanf("%d", &menuEscolha);
 
+    while (menuEscolha != 0) {
+        switch (menuEscolha) {
+            case 1:
+                M = obterValorM();
+                lerVetor(vetorM, M, 'M');
+                entryM = 1;
+                break;
+
+            case 2:
+                N = obterValorN();
+                lerVetor(vetorN, N, 'N');
+                entryN = 1;
+                break;
+
+            case 3:
+                printf("\n+-------------------------------------------------+\n");
+                printf("| LISTAR VETOR                                    |\n");
+                printf("+-------------------------------------------------+\n");
+                printf("Escolha o vetor que deseja listar [M/N]: ");
+                scanf(" %c", &escolhaListagem);
+
+                if (escolhaListagem == 'M' || escolhaListagem == 'm') {
+                    if (entryM == 0) {
+                        printf("\nO vetor M ainda nao foi preenchido.\n");
+                        printf("Escolha a opcao 1 no menu primeiro.\n");
+                    } else {
+                        listarVetor(vetorM, M, 'M');
+                    }
+                } else if (escolhaListagem == 'N' || escolhaListagem == 'n') {
+                    if (entryN == 0) {
+                        printf("\nO vetor N ainda nao foi preenchido.\n");
+                        printf("Escolha a opcao 2 no menu primeiro.\n");
+                    } else {
+                        listarVetor(vetorN, N, 'N');
+                    }
+                } else {
+                    printf("\nOpcao invalida. Escolha M ou N.\n");
+                }
+                break;
+
+            case 4:
+                if (entryM == 0 || entryN == 0) {
+                    printf("\nErro: crie os vetores M e N antes de soma-los.\n");
+                } else if (M != N) {
+                    printf("\nErro: os vetores precisam ter o mesmo tamanho.\n");
+                    printf("M possui %d elementos e N possui %d elementos.\n", M, N);
+                } else {
+                    somarVetores(vetorM, vetorN, vetorSoma, M);
+
+                    printf("\nVetores somados com sucesso!\n");
+                    listarVetor(vetorSoma, M, 'S');
+                }
+                break;
+
+            case 5:
+                printf("\n+-------------------------------------------------+\n");
+                printf("| MULTIPLICAR VETOR POR ESCALAR                   |\n");
+                printf("+-------------------------------------------------+\n");
+                printf("Escolha o vetor [M/N]: ");
+                scanf(" %c", &escolhaVetor);
+
+                printf("Digite o valor do escalar: ");
+                scanf("%d", &escalar);
+
+                if (escolhaVetor == 'M' || escolhaVetor == 'm') {
+                    if (entryM == 0) {
+                        printf("\nO vetor M ainda nao foi preenchido.\n");
+                    } else {
+                        multiplicarVetorPorEscalar(vetorM, vetorEscalar, M, escalar);
+
+                        printf("\nVetor M multiplicado por %d com sucesso!\n", escalar);
+                        listarVetor(vetorEscalar, M, 'E');
+                    }
+                } else if (escolhaVetor == 'N' || escolhaVetor == 'n') {
+                    if (entryN == 0) {
+                        printf("\nO vetor N ainda nao foi preenchido.\n");
+                    } else {
+                        multiplicarVetorPorEscalar(vetorN, vetorEscalar, N, escalar);
+
+                        printf("\nVetor N multiplicado por %d com sucesso!\n", escalar);
+                        listarVetor(vetorEscalar, N, 'E');
+                    }
+                } else {
+                    printf("\nOpcao invalida. Escolha M ou N.\n");
+                }
+                break;
+
+            default:
+                printf("\nOpcao invalida. Tente novamente.\n");
         }
+
         MenuPrincipal();
         printf("Escolha uma opcao: ");
-        scanf("%d",&menuEscolha);
-
+        scanf("%d", &menuEscolha);
     }
 
+    printf("\nPrograma encerrado. Ate mais!\n");
 
     return 0;
 }

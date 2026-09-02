@@ -8,6 +8,18 @@ int main(){
     cout<<"Nome: ";cin>>nome;
     cout<<"idade: ";cin>>idade;
     cout<<"peso: ";cin>>peso;
+    //weqjionbpcfbnujeipwdcsfvqjnibkpvcsfqabinjuvvcwfersqubnijljcvdrfeqswuijknlicwdrfvqnbuijklrcrvwfqnuijlurvwfecqnujoip;v
 
     return 0;
+
+
+
+
+
+
+
+
+
+
+    
 }

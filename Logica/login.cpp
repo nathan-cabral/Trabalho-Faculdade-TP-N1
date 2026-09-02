@@ -10,6 +10,7 @@ int main(){
     cout<<"peso: ";cin>>peso;
     //weqjionbpcfbnujeipwdcsfvqjnibkpvcsfqabinjuvvcwfersqubnijljcvdrfeqswuijknlicwdrfvqnbuijklrcrvwfqnuijlurvwfecqnujoip;v
 
+    cout<<"AAAAAAAAAAAAAAA AAAAAAAAAA AMNFCINENV\n";
     return 0;
 
 
@@ -21,5 +22,5 @@ int main(){
 
 
 
-    
+
 }

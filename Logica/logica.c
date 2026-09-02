@@ -21,6 +21,6 @@ int main(){
     int idade;
     scanf("%d",&idade);
     idadeD(idade);
-
+    printf("programa finalizado com sucesso!\n");
     return 0;
 }

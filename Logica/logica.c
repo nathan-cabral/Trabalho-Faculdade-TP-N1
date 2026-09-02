@@ -3,7 +3,7 @@ void texto(){
     printf("programa encerrado\n");
 }
 
-int idade(int i){
+int idadeD(int i){
     if(i<13){
         printf("crianca\n");
     }else if(i<18){
@@ -20,6 +20,7 @@ int main(){
     texto();
     int idade;
     scanf("%d",&idade);
+    idadeD(idade);
 
     return 0;
 }

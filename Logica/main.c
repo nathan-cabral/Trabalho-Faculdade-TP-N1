@@ -106,7 +106,7 @@ int main() {
     int vetorSoma[30], vetorEscalar[30];
 
     int M = 0, N = 0;
-    int entryM = 0, entryN = 0;
+    int checkM = 0, checkN = 0;
 
     int menuEscolha = -1;
     int escalar;
@@ -130,13 +130,13 @@ int main() {
             case 1:
                 M = obterValorM();
                 lerVetor(vetorM, M, 'M');
-                entryM = 1;
+                checkM = 1;
                 break;
 
             case 2:
                 N = obterValorN();
                 lerVetor(vetorN, N, 'N');
-                entryN = 1;
+                checkN = 1;
                 break;
 
             case 3:
@@ -147,14 +147,14 @@ int main() {
                 scanf(" %c", &escolhaListagem);
 
                 if (escolhaListagem == 'M' || escolhaListagem == 'm') {
-                    if (entryM == 0) {
+                    if (checkM == 0) {
                         printf("\nO vetor M ainda nao foi preenchido.\n");
                         printf("Escolha a opcao 1 no menu primeiro.\n");
                     } else {
                         listarVetor(vetorM, M, 'M');
                     }
                 } else if (escolhaListagem == 'N' || escolhaListagem == 'n') {
-                    if (entryN == 0) {
+                    if (checkN == 0) {
                         printf("\nO vetor N ainda nao foi preenchido.\n");
                         printf("Escolha a opcao 2 no menu primeiro.\n");
                     } else {
@@ -166,7 +166,7 @@ int main() {
                 break;
 
             case 4:
-                if (entryM == 0 || entryN == 0) {
+                if (checkM == 0 || checkN == 0) {
                     printf("Erro: crie os vetores M e N antes de soma-los.\n");
                 } else if (M != N) {
                     printf("Erro: os vetores precisam ter o mesmo tamanho.\n");
@@ -187,7 +187,7 @@ int main() {
                 scanf(" %c", &escolhaVetor);
 
                 if (escolhaVetor == 'M' || escolhaVetor == 'm') {
-                    if (entryM == 0) {
+                    if (checkM == 0) {
                         printf("\nO vetor M ainda nao foi preenchido.\n");
                     } else {
                         printf("Digite o valor do escalar: ");
@@ -201,7 +201,7 @@ int main() {
                         listarVetor(vetorEscalar, M, 'E');
                     }
                 } else if (escolhaVetor == 'N' || escolhaVetor == 'n') {
-                    if (entryN == 0) {
+                    if (checkN == 0) {
                         printf("\nO vetor N ainda nao foi preenchido.\n");
                     } else {
                         printf("Digite o valor do escalar: ");
@@ -227,7 +227,9 @@ int main() {
     }
 
     limparTela();
-    printf("\nPrograma encerrado. Ate mais!\n");
+    printf("\nPrograma encerrado !\n");
+    
+
 
     return 0;
 }

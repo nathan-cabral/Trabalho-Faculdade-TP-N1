@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+int vetorM[30], vetorN[20];
 
 void limparTela() {
     system("cls");
@@ -24,6 +25,8 @@ int obterValorM() {
         scanf("%d", &M);
     }
 
+    lerVetor(vetorM, M, 'M');
+
     return M;
 }
 
@@ -40,6 +43,8 @@ int obterValorN() {
         printf("Valor invalido. Digite um valor entre 1 e 20: ");
         scanf("%d", &N);
     }
+
+    lerVetor(vetorN, N, 'N');
 
     return N;
 }
@@ -102,7 +107,7 @@ void MenuPrincipal() {
 }
 
 int main() {
-    int vetorM[30], vetorN[20];
+    
     int vetorSoma[30], vetorEscalar[30];
 
     int M = 0, N = 0;
@@ -129,13 +134,11 @@ int main() {
         switch (menuEscolha) {
             case 1:
                 M = obterValorM();
-                lerVetor(vetorM, M, 'M');
                 checkM = 1;
                 break;
 
             case 2:
                 N = obterValorN();
-                lerVetor(vetorN, N, 'N');
                 checkN = 1;
                 break;
 
@@ -193,9 +196,7 @@ int main() {
                         printf("Digite o valor do escalar: ");
                         scanf("%d", &escalar);
 
-                        multiplicarVetorPorEscalar(
-                            vetorM, vetorEscalar, M, escalar
-                        );
+                        multiplicarVetorPorEscalar(vetorM, vetorEscalar, M, escalar);
 
                         printf("\nVetor M multiplicado por %d com sucesso!\n", escalar);
                         listarVetor(vetorEscalar, M, 'E');

@@ -224,6 +224,7 @@ int main() {
                         multiplicarVetorPorEscalar(
                             vetorN, vetorEscalar, N, escalar
                         );
+                        
                         checkE=1;
 
                         printf("\nVetor N multiplicado por %d com sucesso!\n", escalar);
@@ -255,6 +256,24 @@ int main() {
                         int valorBuscado;
                         scanf("%d",&valorBuscado);
                         verificarExistencia(valorBuscado,vetorN,N);                        
+                    }
+                }else if(escolhaVetor=='S'||escolhaVetor=='s'){
+                    if(checkS==0){
+                        print("\nO vetor S ainda nao foi preenchido.\n");
+                    }else{
+                        printf("Qual valor voce deseja encontrar no vetor: ");
+                        int valorBuscado;
+                        scanf("%d",&valorBuscado);
+                        verificarExistencia(valorBuscado,vetorSoma,M);
+                    }
+                }else if(escolhaVetor=='E'||escolhaVetor=='e'){
+                    if(checkE==0){
+                        printf("\nO vetor E ainda nao foi preenchido.\n");
+                    }else{
+                        printf("Qual valor voce deseja encontrar no vetor: ");
+                        int valorBuscado;
+                        scanf("%d",&valorBuscado);
+                        verificarExistencia(valorBuscado,vetorEscalar,M); 
                     }
                 }
                 break;

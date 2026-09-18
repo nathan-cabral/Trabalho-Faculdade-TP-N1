@@ -247,6 +247,15 @@ int main() {
                         verificarExistencia(valorBuscado,vetorM,M);
                         
                     }
+                }else if(escolhaVetor=='N'|| escolhaVetor=='n'){
+                    if(checkN==0){
+                        printf("\nO vetor N ainda nao foi preenchido.\n");
+                    }else{
+                        printf("Qual valor voce deseja encontrar no vetor: ");
+                        int valorBuscado;
+                        scanf("%d",&valorBuscado);
+                        verificarExistencia(valorBuscado,vetorN,N);                        
+                    }
                 }
                 break;
 

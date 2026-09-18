@@ -14,11 +14,14 @@ Elaborar um programa em Linguagem C que apresente um Menu para o usuário com as
 
 5) Gerar um segundo vetor obtido através da multiplicação de um escalar por um vetor de números inteiros;
 
-6)
+6) Pesquisar se um determinado número existe ou não em um vetor;
 
-7)
+7) Gerar um vetor obtido a partir de dois vetores, contendo os elementos que aparecem em apenas um dos dois vetores;
 
-8)
+8) Gerar um vetor obtido pela intercalação de dois outros vetores ordenados (em ordem crescente de valores), mantendo a ordenação;
+
+9) Finalizar a execução do programa
+
 
 ## --------------------------------------------------------------------------------------------------------
 

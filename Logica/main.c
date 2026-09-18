@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 int vetorM[30], vetorN[20];
+
+void verificarExistencia(){
+
+}
 
 void limparTela() {
     system("cls");
@@ -92,15 +97,18 @@ void MenuPrincipal() {
         "===============================================================\n"
         "                       MENU PRINCIPAL\n"
         "===============================================================\n"
-        " [1] Ler primeiro vetor (M <= 30)\n"
-        "     - Informar quantidade e elementos\n\n"
-        " [2] Ler segundo vetor (N <= 20)\n"
-        "     - Informar quantidade e elementos\n\n"
+        " [1] Ler primeiro vetor (M <= 30)\n\n"
+        " [2] Ler segundo vetor (N <= 20)\n\n"
         " [3] Listar elementos de um vetor\n\n"
         " [4] Somar dois vetores\n"
         "     - Gerar terceiro vetor com a soma dos elementos\n\n"
         " [5] Multiplicar vetor por escalar\n"
         "     - Gerar novo vetor resultante\n\n"
+        " [6] Pesquisar se um determinado número existe ou não em um vetor\n\n"
+        " [7] Gerar um vetor obtido a partir de dois vetores\n"
+        "    - Contendo os elementos que aparecem em apenas um dos dois vetores\n\n"
+        " [8] Gerar um vetor obtido pela intercalação de dois outros vetores\n"
+        "    - Ordenados (em ordem crescente de valores), mantendo a ordenação\n\n"
         " [0] Sair\n"
         "===============================================================\n"
     );
@@ -111,7 +119,7 @@ int main() {
     int vetorSoma[30], vetorEscalar[30];
 
     int M = 0, N = 0;
-    int checkM = 0, checkN = 0;
+    int checkM = 0, checkN = 0,checkS = 0,checkE = 0;
 
     int menuEscolha = -1;
     int escalar;
@@ -176,7 +184,7 @@ int main() {
                     printf("M possui %d elementos e N possui %d elementos.\n", M, N);
                 } else {
                     somarVetores(vetorM, vetorN, vetorSoma, M);
-
+                    checkS=1;
                     printf("\nVetores somados com sucesso!\n");
                     listarVetor(vetorSoma, M, 'S');
                 }
@@ -197,7 +205,7 @@ int main() {
                         scanf("%d", &escalar);
 
                         multiplicarVetorPorEscalar(vetorM, vetorEscalar, M, escalar);
-
+                        checkE=1;
                         printf("\nVetor M multiplicado por %d com sucesso!\n", escalar);
                         listarVetor(vetorEscalar, M, 'E');
                     }
@@ -211,12 +219,25 @@ int main() {
                         multiplicarVetorPorEscalar(
                             vetorN, vetorEscalar, N, escalar
                         );
+                        checkE=1;
 
                         printf("\nVetor N multiplicado por %d com sucesso!\n", escalar);
                         listarVetor(vetorEscalar, N, 'E');
                     }
                 } else {
                     printf("\nOpcao invalida. Escolha M ou N.\n");
+                }
+                break;
+
+            case 6:
+                printf("Escolha o vetor [M / N / S(soma) / E(escalar)]:  ");
+                scanf(" %c",&escolhaVetor);
+                if(escolhaVetor=='M'|| escolhaVetor=='m'){
+                    if(checkM==0){
+                        printf("\nO vetor M ainda nao foi preenchido.\n");
+                    }else{
+                        printf("Qual valor voce deseja ")
+                    }
                 }
                 break;
 

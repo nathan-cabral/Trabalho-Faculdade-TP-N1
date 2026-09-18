@@ -3,8 +3,13 @@
 
 int vetorM[30], vetorN[20];
 
-void verificarExistencia(){
-
+void verificarExistencia(int buscado,int vetor[],int M){
+    for(int i=0;i<M;i++){
+        if(vetor[i]==buscado){
+            printf("Valor achado!\n");
+            printf("Valor = %d\nPosicao = [%d]\n",vetor[i],i);
+        }
+    }
 }
 
 void limparTela() {
@@ -236,7 +241,11 @@ int main() {
                     if(checkM==0){
                         printf("\nO vetor M ainda nao foi preenchido.\n");
                     }else{
-                        printf("Qual valor voce deseja ")
+                        printf("Qual valor voce deseja encontrar no vetor: ");
+                        int valorBuscado;
+                        scanf("%d",&valorBuscado);
+                        verificarExistencia(valorBuscado,vetorM,M);
+                        
                     }
                 }
                 break;

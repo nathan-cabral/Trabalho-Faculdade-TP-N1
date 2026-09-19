@@ -21,6 +21,19 @@ void pausar() {
     system("pause");
 }
 
+void lerVetor(int vetor[], int tamanho, char nomeVetor) {
+    printf("\nInforme os elementos do vetor %c:\n", nomeVetor);
+    printf("---------------------------------------------------\n");
+
+    for (int i = 0; i < tamanho; i++) {
+        printf("%c[%d] = ", nomeVetor, i);
+        scanf("%d", &vetor[i]);
+    }
+
+    printf("---------------------------------------------------\n");
+    printf("Vetor %c armazenado com sucesso!\n", nomeVetor);
+}
+
 int obterValorM() {
     int M;
 
@@ -57,19 +70,6 @@ int obterValorN() {
     lerVetor(vetorN, N, 'N');
 
     return N;
-}
-
-void lerVetor(int vetor[], int tamanho, char nomeVetor) {
-    printf("\nInforme os elementos do vetor %c:\n", nomeVetor);
-    printf("---------------------------------------------------\n");
-
-    for (int i = 0; i < tamanho; i++) {
-        printf("%c[%d] = ", nomeVetor, i);
-        scanf("%d", &vetor[i]);
-    }
-
-    printf("---------------------------------------------------\n");
-    printf("Vetor %c armazenado com sucesso!\n", nomeVetor);
 }
 
 void listarVetor(int vetor[], int tamanho, char nomeVetor) {
@@ -124,8 +124,8 @@ int main() {
     int vetorSoma[30], vetorEscalar[30];
 
     int M = 0, N = 0;
-    int checkM = 0, checkN = 0,checkS = 0,checkE = 0;
-
+    int checkM = 0, checkN = 0,checkS = 0,checkEM = 0, checkEN=0;
+    int valorBuscado;
     int menuEscolha = -1;
     int escalar;
     char escolhaListagem;
@@ -210,7 +210,7 @@ int main() {
                         scanf("%d", &escalar);
 
                         multiplicarVetorPorEscalar(vetorM, vetorEscalar, M, escalar);
-                        checkE=1;
+                        checkEM=1;
                         printf("\nVetor M multiplicado por %d com sucesso!\n", escalar);
                         listarVetor(vetorEscalar, M, 'E');
                     }
@@ -225,7 +225,7 @@ int main() {
                             vetorN, vetorEscalar, N, escalar
                         );
                         
-                        checkE=1;
+                        checkEN=1;
 
                         printf("\nVetor N multiplicado por %d com sucesso!\n", escalar);
                         listarVetor(vetorEscalar, N, 'E');
@@ -236,14 +236,17 @@ int main() {
                 break;
 
             case 6:
-                printf("Escolha o vetor [M / N / S(soma) / E(escalar)]:  ");
+                printf("+-------------------------------------------------+\n");
+                printf("| BUSCAR NUMERO DENTRO DO VETOR                   |\n");
+                printf("+-------------------------------------------------+\n");
+                printf("Escolha um vetor [M / N / S / E]: ");
                 scanf(" %c",&escolhaVetor);
                 if(escolhaVetor=='M'|| escolhaVetor=='m'){
                     if(checkM==0){
                         printf("\nO vetor M ainda nao foi preenchido.\n");
                     }else{
                         printf("Qual valor voce deseja encontrar no vetor: ");
-                        int valorBuscado;
+                        
                         scanf("%d",&valorBuscado);
                         verificarExistencia(valorBuscado,vetorM,M);
                         
@@ -253,27 +256,37 @@ int main() {
                         printf("\nO vetor N ainda nao foi preenchido.\n");
                     }else{
                         printf("Qual valor voce deseja encontrar no vetor: ");
-                        int valorBuscado;
+                        
                         scanf("%d",&valorBuscado);
                         verificarExistencia(valorBuscado,vetorN,N);                        
                     }
                 }else if(escolhaVetor=='S'||escolhaVetor=='s'){
                     if(checkS==0){
-                        print("\nO vetor S ainda nao foi preenchido.\n");
+                        printf("\nO vetor S ainda nao foi preenchido.\n");
                     }else{
                         printf("Qual valor voce deseja encontrar no vetor: ");
-                        int valorBuscado;
                         scanf("%d",&valorBuscado);
                         verificarExistencia(valorBuscado,vetorSoma,M);
                     }
                 }else if(escolhaVetor=='E'||escolhaVetor=='e'){
-                    if(checkE==0){
-                        printf("\nO vetor E ainda nao foi preenchido.\n");
-                    }else{
-                        printf("Qual valor voce deseja encontrar no vetor: ");
-                        int valorBuscado;
-                        scanf("%d",&valorBuscado);
-                        verificarExistencia(valorBuscado,vetorEscalar,M); 
+                    printf("Vetores escalares [M/N]\n");
+                    scanf(" %c",&escolhaVetor);
+                    if(escolhaVetor=='M'){
+                        if(checkEM==0){
+                            printf("\nO vetor escalar M ainda nao foi preenchido.\n");
+                        }else{
+                            printf("Qual valor voce deseja encontrar no vetor: ");
+                            scanf("%d",&valorBuscado);
+                            verificarExistencia(valorBuscado,vetorEscalar,M);
+                        }
+                    }else if(escolhaVetor=='N'){
+                        if(checkEN==0){
+                            printf("\nO vetor escalar N ainda nao foi preenchido.\n");
+                        }else{
+                            printf("Qual valor voce deseja encontrar no vetor: ");
+                            scanf("%d",&valorBuscado);
+                            verificarExistencia(valorBuscado,vetorEscalar,N);
+                        }
                     }
                 }
                 break;

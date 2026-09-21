@@ -6,9 +6,7 @@ Elaborar um programa em Linguagem C que apresente um Menu para o usuário com as
 ## ok
 2) Obter a quantidade N (N <= 20) de elementos e também os elementos de um segundo vetor de números inteiros;
 
-
 3) Listar os elementos de um vetor de números inteiros;
-
 
 4) Gerar um terceiro vetor obtido através da adição de dois vetores de números inteiros (adicionar os elementos correspondentes dos dois vetores);
 
@@ -18,7 +16,7 @@ Elaborar um programa em Linguagem C que apresente um Menu para o usuário com as
 
 7) Gerar um vetor obtido a partir de dois vetores, contendo os elementos que aparecem em apenas um dos dois vetores;
 
-8) Gerar um vetor obtido pela intercalação de dois outros vetores ordenados (em ordem crescente de valores), mantendo a ordenação;
+8) Gerar um vetor obtido pela intercalação de dois outros vetores ordenados (em ordem crescente de valores), mantendo a ordenação; 
 
 9) Finalizar a execução do programa
 

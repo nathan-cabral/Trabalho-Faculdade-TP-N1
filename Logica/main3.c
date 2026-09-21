@@ -82,13 +82,26 @@ int get_vetN(){
     printf("\n+-------------------------------------------------+\n");
     printf("| LEITURA DO VETOR N                                |\n");
     printf("+---------------------------------------------------+\n");
+
+    printf("Quantidade de posicoes do vetor N (maximo 20): ");
+    scanf("%d",&N);
+
+    while(N<1 || N>20){
+        printf("Valor invalido. Insira um valor entre 1 e 20: ");
+        scanf("%d",&N);
+    }
+
+    lerVet(vetN,N,'N');
+
+    return N;
 }
+
 int main(){
 
     int menu_escolha=-1;
     int M=0, N=0;
 
-    int checkM=0;
+    int checkM=0, checkN=0;
 
     while(menu_escolha!=9){
 
@@ -101,15 +114,20 @@ int main(){
 
         case 1:
 
-            get_vetM();
+            M = get_vetM();
             checkM=1;   
             break;
 
         case 2:
 
-            
+            N = get_vetN();
+            checkN=1;
             break;
 
+        case 3: 
+
+
+            break; 
         default:
             break;
         }

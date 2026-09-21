@@ -414,12 +414,14 @@ void opcaoPesquisar(
     }
 }
 
-
+void opcaoUnico(){
+    
+}
 
 int main() { 
     int vetorSoma[30];
     int vetorEscalar[30];
-    int vetorOp7[50];
+    int vetorUnico[50];
 
     int M = 0;
     int N = 0;

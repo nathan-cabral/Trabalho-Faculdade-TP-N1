@@ -7,7 +7,7 @@ Elaborar um programa em Linguagem C que apresente um Menu para o usuário com as
 2) Obter a quantidade N (N <= 20) de elementos e também os elementos de um segundo vetor de números inteiros;
 
 3) Listar os elementos de um vetor de números inteiros;
-
+    
 4) Gerar um terceiro vetor obtido através da adição de dois vetores de números inteiros (adicionar os elementos correspondentes dos dois vetores);
 
 5) Gerar um segundo vetor obtido através da multiplicação de um escalar por um vetor de números inteiros;

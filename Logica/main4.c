@@ -120,7 +120,6 @@ void menuPrincipal(){
     );
 }
 
-
 // opcoes menu
 
 void opcaoListar(Estado *estado){
@@ -162,10 +161,17 @@ void opcaoListar(Estado *estado){
             if(estado->checkN==0) printf("\nO vetor Escalar de N ainda nao foi gerado.\n");
             else listarVet(vetEscalarN,estado->N,"EscalarN");
         }else if(escalar=='S'||escalar=='s'){
-            if(estado->checkS==0)printf("\nO vetor Escalar Soma ainda nao foi gerado\n");
-            else listarVet(vetEscalarSoma,estado->,"EscalarS");
+            
         }
+        else{
+            printf("\nOpcao invalida. Escolha M ou N\n");
+        }
+        return;
+    }
 
+    if(escolha=='U'|| escolha=='u'){
+        if(estado->checkU==0)printf("\nO vetor Unico ainda nao foi gerado.\n");
+        else listarVetor(vetUnico,estado->tamU,"Unico");
     }
 
 }

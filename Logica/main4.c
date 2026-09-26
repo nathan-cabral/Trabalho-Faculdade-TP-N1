@@ -149,6 +149,7 @@ void opcaoListar(Estado *estado){
         return;
     }
 
+    //arrumar 
     if(escolha=='E'|| escolha=='e'){
         char escalar;
         printf("Escolha o Escalar [M/N/S/U/I]: ");
@@ -160,9 +161,8 @@ void opcaoListar(Estado *estado){
         }else if(escalar=='N'||escalar=='n'){
             if(estado->checkN==0) printf("\nO vetor Escalar de N ainda nao foi gerado.\n");
             else listarVet(vetEscalarN,estado->N,"EscalarN");
-        }else if(escalar=='S'||escalar=='s'){
-            
         }
+        
         else{
             printf("\nOpcao invalida. Escolha M ou N\n");
         }

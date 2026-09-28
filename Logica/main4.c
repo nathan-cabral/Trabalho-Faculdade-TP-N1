@@ -1,10 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TAM_MAX_M 30
-#define TAM_MAX_N 20
-#define TAM_MAX_UNICO (TAM_MAX_M + TAM_MAX_N)
-#define TAM_MAX_INTERCALADO (TAM_MAX_M + TAM_MAX_N)
 
 // vetores globais
 // fiz isso pois posso acessar os vetores de qualquer funcao
@@ -64,12 +60,12 @@ int obterValorM()
     printf("| LEITURA DO VETOR M                              |\n");
     printf("+-------------------------------------------------+\n");
 
-    printf("Quantidade de elementos de M (maximo %d): ", TAM_MAX_M);
+    printf("Quantidade de elementos de M (maximo %d): ", 30);
     scanf("%d", &M);
 
-    while (M < 1 || M > TAM_MAX_M)
+    while (M < 1 || M > 30)
     {
-        printf("Valor invalido. Digite um valor entre 1 e %d: ", TAM_MAX_M);
+        printf("Valor invalido. Digite um valor entre 1 e %d: ", 30);
         scanf("%d", &M);
     }
 
@@ -85,12 +81,12 @@ int obterValorN()
     printf("| LEITURA DO VETOR N                              |\n");
     printf("+-------------------------------------------------+\n");
 
-    printf("Quantidade de elementos de N (maximo %d): ", TAM_MAX_N);
+    printf("Quantidade de elementos de N (maximo %d): ", 20);
     scanf("%d", &N);
 
-    while (N < 1 || N > TAM_MAX_N)
+    while (N < 1 || N > 20)
     {
-        printf("Valor invalido. Digite um valor entre 1 e %d: ", TAM_MAX_N);
+        printf("Valor invalido. Digite um valor entre 1 e %d: ", 20);
         scanf("%d", &N);
     }
 
@@ -258,7 +254,7 @@ void opcaoListar(Estado *estado)
 
     if (escolha == 'M' || escolha == 'm')
     {
-        if (!estado->checkM)
+        if (estado->checkM==0)
             printf("\nO vetor M ainda nao foi preenchido.\n");
         else
             listarVetor(vetorM, estado->M, "M");
@@ -272,7 +268,7 @@ void opcaoListar(Estado *estado)
     }
     else if (escolha == 'S' || escolha == 's')
     {
-        if (!estado->checkS)
+        if (estado->checkS==0)
             printf("\nO vetor Soma ainda nao foi gerado.\n");
         else
             listarVetor(vetorSoma, estado->M, "Soma");
@@ -285,14 +281,14 @@ void opcaoListar(Estado *estado)
 
         if (sub == 'M' || sub == 'm')
         {
-            if (!estado->checkEM)
+            if (estado->checkEM==0)
                 printf("\nO vetor Escalar de M ainda nao foi gerado.\n");
             else
                 listarVetor(vetorEscalarM, estado->M, "EscalarM");
         }
         else if (sub == 'N' || sub == 'n')
         {
-            if (!estado->checkEN)
+            if (estado->checkEN==0)
                 printf("\nO vetor Escalar de N ainda nao foi gerado.\n");
             else
                 listarVetor(vetorEscalarN, estado->N, "EscalarN");
@@ -304,14 +300,14 @@ void opcaoListar(Estado *estado)
     }
     else if (escolha == 'U' || escolha == 'u')
     {
-        if (!estado->checkU)
+        if (estado->checkU==0)
             printf("\nO vetor Unico ainda nao foi gerado.\n");
         else
             listarVetor(vetorUnico, estado->tamU, "Unico");
     }
     else if (escolha == 'I' || escolha == 'i')
     {
-        if (!estado->checkI)
+        if (estado->checkI==0)
             printf("\nO vetor Intercalado ainda nao foi gerado.\n");
         else
             listarVetor(vetorIntercalado, estado->tamI, "Intercalado");
@@ -324,7 +320,7 @@ void opcaoListar(Estado *estado)
 
 void opcaoSomar(Estado *estado)
 {
-    if (!estado->checkM || !estado->checkN)
+    if (estado->checkM==0 || !estado->checkN==0)
     {
         printf("Erro: crie os vetores M e N antes de soma-los.\n");
         return;
@@ -357,7 +353,7 @@ void opcaoEscalar(Estado *estado)
 
     if (escolha == 'M' || escolha == 'm')
     {
-        if (!estado->checkM)
+        if (estado->checkM==0)
         {
             printf("\nO vetor M ainda nao foi preenchido.\n");
             return;
@@ -374,7 +370,7 @@ void opcaoEscalar(Estado *estado)
     }
     else if (escolha == 'N' || escolha == 'n')
     {
-        if (!estado->checkN)
+        if (estado->checkN==0)
         {
             printf("\nO vetor N ainda nao foi preenchido.\n");
             return;
@@ -413,7 +409,7 @@ void opcaoPesquisar(Estado *estado)
 
     case 'M':
     case 'm':
-        if (!estado->checkM)
+        if (estado->checkM==0)
         {
             printf("O vetor M ainda nao foi preenchido.\n");
             return;
@@ -425,7 +421,7 @@ void opcaoPesquisar(Estado *estado)
 
     case 'N':
     case 'n':
-        if (!estado->checkN)
+        if (estado->checkN==0)
         {
             printf("O vetor N ainda nao foi preenchido.\n");
             return;
@@ -437,7 +433,7 @@ void opcaoPesquisar(Estado *estado)
 
     case 'S':
     case 's':
-        if (!estado->checkS)
+        if (estado->checkS==0)
         {
             printf("O vetor Soma ainda nao foi gerado.\n");
             return;
@@ -456,7 +452,7 @@ void opcaoPesquisar(Estado *estado)
 
         if (sub == 'M' || sub == 'm')
         {
-            if (!estado->checkEM)
+            if (estado->checkEM==0)
             {
                 printf("O vetor Escalar de M ainda nao foi gerado.\n");
                 return;
@@ -467,7 +463,7 @@ void opcaoPesquisar(Estado *estado)
         }
         else if (sub == 'N' || sub == 'n')
         {
-            if (!estado->checkEN)
+            if (estado->checkEN==0)
             {
                 printf("O vetor Escalar de N ainda nao foi gerado.\n");
                 return;
@@ -485,7 +481,7 @@ void opcaoPesquisar(Estado *estado)
 
     case 'U':
     case 'u':
-        if (!estado->checkU)
+        if (estado->checkU==0)
         {
             printf("O vetor Unico ainda nao foi gerado.\n");
             return;
@@ -497,7 +493,7 @@ void opcaoPesquisar(Estado *estado)
 
     case 'I':
     case 'i':
-        if (!estado->checkI)
+        if (estado->checkI==0)
         {
             printf("O vetor Intercalado ainda nao foi gerado.\n");
             return;
@@ -519,7 +515,7 @@ void opcaoGerarUnico(Estado *estado)
     printf("| VETOR UNICO (elementos exclusivos de M ou N)    |\n");
     printf("+-------------------------------------------------+\n");
 
-    if (!estado->checkM || !estado->checkN)
+    if (estado->checkM==0 || estado->checkN==0)
     {
         printf("Erro: crie os vetores M e N antes de gerar este vetor.\n");
         return;
@@ -539,7 +535,7 @@ void opcaoGerarIntercalado(Estado *estado)
     printf("| VETOR INTERCALADO (merge de M e N ordenados)    |\n");
     printf("+-------------------------------------------------+\n");
 
-    if (!estado->checkM || !estado->checkN)
+    if (estado->checkM==0 || estado->checkN==0)
     {
         printf("Erro: crie os vetores M e N antes de gerar este vetor.\n");
         return;

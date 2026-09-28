@@ -6,7 +6,7 @@
 #define TAM_MAX_UNICO (TAM_MAX_M + TAM_MAX_N)
 #define TAM_MAX_INTERCALADO (TAM_MAX_M + TAM_MAX_N)
 
-// ----- Vetores globais -----
+
 int vetorM[TAM_MAX_M];
 int vetorN[TAM_MAX_N];
 int vetorSoma[TAM_MAX_M];
@@ -15,9 +15,7 @@ int vetorEscalarN[TAM_MAX_N];
 int vetorUnico[TAM_MAX_UNICO];
 int vetorIntercalado[TAM_MAX_INTERCALADO];
 
-// ----- Estado do programa -----
-// Agrupa tamanhos e "flags" de controle para nao ficar passando
-// meia duzia de parametros soltos pra cada funcao.
+
 typedef struct {
     int M, N;
     int checkM, checkN;
@@ -27,13 +25,12 @@ typedef struct {
     int checkI;  int tamI;
 } Estado;
 
-// ----- Utilidades -----
 
-void limparTela() {
+void cls() {
     system("cls");
 }
 
-void pausar() {
+void pausa() {
     printf("\n");
     system("pause");
 }
@@ -458,13 +455,13 @@ int main() {
     int menuEscolha = -1;
 
     while (menuEscolha != 0) {
-        limparTela();
+        cls();
         menuPrincipal();
 
         printf("Escolha uma opcao: ");
         scanf("%d", &menuEscolha);
 
-        limparTela();
+        cls();
 
         switch (menuEscolha) {
             case 1:
@@ -509,11 +506,11 @@ int main() {
         }
 
         if (menuEscolha != 0) {
-            pausar();
+            pausa();
         }
     }
 
-    limparTela();
+    cls();
     printf("\nPrograma encerrado!\n");
 
     return 0;

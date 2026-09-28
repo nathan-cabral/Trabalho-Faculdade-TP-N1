@@ -1,103 +1,111 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#define tam_m 30
-#define tam_n 20
-#define tam_maximo (tam_m+tam_n)
+#define TAM_MAX_M 30
+#define TAM_MAX_N 20
+#define TAM_MAX_UNICO (TAM_MAX_M + TAM_MAX_N)
+#define TAM_MAX_INTERCALADO (TAM_MAX_M + TAM_MAX_N)
 
-int vetM[tam_m];
-int vetN[tam_n];
-int vetSoma[tam_m];
-int vetEscalarM[tam_m];
-int vetEscalarN[tam_n];
-int vetEscalarSoma[tam_m];
-int vetEscalarUnico[tam_maximo];
-int vetEscalarIntercalado[tam_maximo];
-int vetUnico[tam_maximo];
-int vetIntercalado[tam_maximo];
+// ----- Vetores globais -----
+int vetorM[TAM_MAX_M];
+int vetorN[TAM_MAX_N];
+int vetorSoma[TAM_MAX_M];
+int vetorEscalarM[TAM_MAX_M];
+int vetorEscalarN[TAM_MAX_N];
+int vetorUnico[TAM_MAX_UNICO];
+int vetorIntercalado[TAM_MAX_INTERCALADO];
 
-typedef struct{
-    int M,N;
-    int checkM,checkN,checkS;
-    int checkEM,checkEN,checkU;
-    int checkES, checkEU,checkEI;
-    int checkI,tamU,tamI;
-}Estado;
+// ----- Estado do programa -----
+// Agrupa tamanhos e "flags" de controle para nao ficar passando
+// meia duzia de parametros soltos pra cada funcao.
+typedef struct {
+    int M, N;
+    int checkM, checkN;
+    int checkS;
+    int checkEM, checkEN;
+    int checkU;  int tamU;
+    int checkI;  int tamI;
+} Estado;
 
-void cls(){
+// ----- Utilidades -----
+
+void limparTela() {
     system("cls");
 }
 
-void pause(){
+void pausar() {
     printf("\n");
     system("pause");
 }
 
+// ----- Leitura -----
 
-// leitura
-void lerVetor(int vetor[],int tamanho, char nomeVetor){
-
-    printf("\nInforme os elementos do vetor %c:\n",nomeVetor);
+void lerVetor(int vetor[], int tamanho, char nomeVetor) {
+    printf("\nInforme os elementos do vetor %c:\n", nomeVetor);
     printf("---------------------------------------------------\n");
 
-    for(int i=0;i<tamanho;i++){
-        printf("%c[%d] = ",nomeVetor,i);
-        scanf("%d",&vetor[i]);
+    for (int i = 0; i < tamanho; i++) {
+        printf("%c[%d] = ", nomeVetor, i);
+        scanf("%d", &vetor[i]);
     }
 
     printf("---------------------------------------------------\n");
-    printf("Vetor %c aramazenado com sucesso !\n",nomeVetor);
+    printf("Vetor %c armazenado com sucesso!\n", nomeVetor);
 }
 
-int obterValorM(){
+int obterValorM() {
     int M;
+
     printf("\n+-------------------------------------------------+\n");
     printf("| LEITURA DO VETOR M                              |\n");
     printf("+-------------------------------------------------+\n");
-    printf("Quantidade de elementos de M (maximo %d): ",tam_m);
-    scanf("%d",&M);
-    while(M<1||M>tam_m){
-        printf("Valor invalido. Digite um valor entre 1 e %d: ",tam_m);
-        scanf("%d",&M);
+
+    printf("Quantidade de elementos de M (maximo %d): ", TAM_MAX_M);
+    scanf("%d", &M);
+
+    while (M < 1 || M > TAM_MAX_M) {
+        printf("Valor invalido. Digite um valor entre 1 e %d: ", TAM_MAX_M);
+        scanf("%d", &M);
     }
 
-    lerVetor(vetM,M,'M');
+    lerVetor(vetorM, M, 'M');
     return M;
-
 }
 
-int obterValorN(){
+int obterValorN() {
     int N;
 
     printf("\n+-------------------------------------------------+\n");
     printf("| LEITURA DO VETOR N                              |\n");
     printf("+-------------------------------------------------+\n");
 
-    printf("Quantidade de elementos de N (maximo %d): ", tam_m);
+    printf("Quantidade de elementos de N (maximo %d): ", TAM_MAX_N);
     scanf("%d", &N);
 
-    while (N < 1 || N > tam_m) {
-        printf("Valor invalido. Digite um valor entre 1 e %d: ", tam_m);
+    while (N < 1 || N > TAM_MAX_N) {
+        printf("Valor invalido. Digite um valor entre 1 e %d: ", TAM_MAX_N);
         scanf("%d", &N);
     }
 
-    lerVetor(vetN, N, 'N');
+    lerVetor(vetorN, N, 'N');
     return N;
 }
 
-// exibir
-void listarVet(int vetor[],int tamanho, const char *nomeVetor){
+// ----- Exibicao -----
+
+void listarVetor(int vetor[], int tamanho, const char *nomeVetor) {
     printf("\n+-------------------------------------------------+\n");
     printf("| ELEMENTOS DO VETOR %-28s|\n", nomeVetor);
     printf("+-------------------------------------------------+\n");
-    for(int i=0;i<tamanho;i++){
-        printf("%s[%d] = %d\n",nomeVetor,i,vetor[i]);
-    }
-    printf("+-------------------------------------------------+\n");
 
+    for (int i = 0; i < tamanho; i++) {
+        printf("%s[%d] = %d\n", nomeVetor, i, vetor[i]);
+    }
+
+    printf("+-------------------------------------------------+\n");
 }
 
-void menuPrincipal(){
+void menuPrincipal() {
     printf(
         "\n"
         "===============================================================\n"
@@ -115,31 +123,30 @@ void menuPrincipal(){
         "     - Elementos que aparecem em apenas um dos dois vetores\n\n"
         " [8] Gerar um vetor obtido pela intercalacao de dois outros vetores\n"
         "     - Ordenados em ordem crescente\n\n"
-        " [9] Sair\n"
+        " [0] Sair\n"
         "===============================================================\n"
     );
 }
 
+// ----- Operacoes com vetores -----
 
-// operacoes
-
-void somarVet(int vM[],int vN[],int vS[],int tam){
-    for(int i=0;i<tam;i++){
-        vetSoma[i]=vetM[i]+vetN[i];
+void somarVetores(int vetorM[], int vetorN[], int vetorSoma[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        vetorSoma[i] = vetorM[i] + vetorN[i];
     }
 }
 
-void multiplicarEscalar(int vetOrig[],int vetResult[],int tam,int escalar){
-    for(int i=0;i<tam;i++){
-        vetResult[i]=vetOrig[i]*escalar;
+void multiplicarVetorPorEscalar(int vetorOriginal[], int vetorResultado[], int tamanho, int escalar) {
+    for (int i = 0; i < tamanho; i++) {
+        vetorResultado[i] = vetorOriginal[i] * escalar;
     }
 }
 
-void verificarExistencia(int buscado,int vetor[],int tam){
-    int encontrado=0;
+void verificarExistencia(int buscado, int vetor[], int tamanho) {
+    int encontrado = 0;
 
-    for(int i=0;i<tam;i++){
-         if (vetor[i] == buscado) {
+    for (int i = 0; i < tamanho; i++) {
+        if (vetor[i] == buscado) {
             printf("\nValor achado!\n");
             printf("Valor = %d\n", vetor[i]);
             printf("Posicao = [%d]\n", i);
@@ -147,33 +154,35 @@ void verificarExistencia(int buscado,int vetor[],int tam){
         }
     }
 
-    if(!encontrado) printf("\nO valor %d nao foi encontrado.\n",buscado);
-
+    if (!encontrado) {
+        printf("\nO valor %d nao foi encontrado.\n", buscado);
+    }
 }
 
-int existeNoVetor(int valor,int vet[],int tam){
-    for(int i=0;i<tam;i++){
-        if(vet[i]==valor)return 1;
+int existeNoVetor(int valor, int vetor[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        if (vetor[i] == valor) return 1;
     }
     return 0;
 }
 
-void gerarVetUnico(int vetA[],int tamA,int vetB[],int tamB,int resul[],int *tamResul){
+// [7] Gera um vetor com os elementos que aparecem em APENAS um dos dois vetores
+void gerarVetorUnico(int vetorA[], int tamA, int vetorB[], int tamB, int resultado[], int *tamResultado) {
     int k = 0;
 
     for (int i = 0; i < tamA; i++) {
-        if (!existeNoVetor(vetA[i], vetB, tamB)) {
-            resul[k++] = vetA[i];
+        if (!existeNoVetor(vetorA[i], vetorB, tamB)) {
+            resultado[k++] = vetorA[i];
         }
     }
 
     for (int i = 0; i < tamB; i++) {
-        if (!existeNoVetor(vetB[i], vetA, tamA)) {
-            resul[k++] = vetB[i];
+        if (!existeNoVetor(vetorB[i], vetorA, tamA)) {
+            resultado[k++] = vetorB[i];
         }
     }
 
-    *tamResul= k;
+    *tamResultado = k;
 }
 
 int estaOrdenadoCrescente(int vetor[], int tamanho) {
@@ -183,6 +192,7 @@ int estaOrdenadoCrescente(int vetor[], int tamanho) {
     return 1;
 }
 
+// [8] Intercala dois vetores ja ordenados, mantendo a ordenacao crescente (merge)
 void intercalarVetoresOrdenados(int vetorA[], int tamA, int vetorB[], int tamB, int resultado[], int *tamResultado) {
     int i = 0, j = 0, k = 0;
 
@@ -200,7 +210,85 @@ void intercalarVetoresOrdenados(int vetorA[], int tamA, int vetorB[], int tamB, 
     *tamResultado = k;
 }
 
-// opcoes menu
+// ----- Opcoes do menu -----
+
+void opcaoListar(Estado *estado) {
+    char escolha;
+
+    printf("+-------------------------------------------------+\n");
+    printf("| LISTAR VETOR                                    |\n");
+    printf("+-------------------------------------------------+\n");
+    printf("Vetores disponiveis: [M] [N] [S]oma [E]scalar [U]nico [I]ntercalado\n");
+    printf("Escolha o vetor que deseja listar: ");
+    scanf(" %c", &escolha);
+
+    switch (escolha) {
+
+        case 'M': case 'm':
+            if (!estado->checkM) printf("\nO vetor M ainda nao foi preenchido.\n");
+            else listarVetor(vetorM, estado->M, "M");
+            break;
+
+        case 'N': case 'n':
+            if (!estado->checkN) printf("\nO vetor N ainda nao foi preenchido.\n");
+            else listarVetor(vetorN, estado->N, "N");
+            break;
+
+        case 'S': case 's':
+            if (!estado->checkS) printf("\nO vetor Soma ainda nao foi gerado.\n");
+            else listarVetor(vetorSoma, estado->M, "Soma");
+            break;
+
+        case 'E': case 'e': {
+            char sub;
+            printf("Escalar de qual vetor [M/N]: ");
+            scanf(" %c", &sub);
+
+            if (sub == 'M' || sub == 'm') {
+                if (!estado->checkEM) printf("\nO vetor Escalar de M ainda nao foi gerado.\n");
+                else listarVetor(vetorEscalarM, estado->M, "EscalarM");
+            } else if (sub == 'N' || sub == 'n') {
+                if (!estado->checkEN) printf("\nO vetor Escalar de N ainda nao foi gerado.\n");
+                else listarVetor(vetorEscalarN, estado->N, "EscalarN");
+            } else {
+                printf("\nOpcao invalida. Escolha M ou N.\n");
+            }
+            break;
+        }
+
+        case 'U': case 'u':
+            if (!estado->checkU) printf("\nO vetor Unico ainda nao foi gerado.\n");
+            else listarVetor(vetorUnico, estado->tamU, "Unico");
+            break;
+
+        case 'I': case 'i':
+            if (!estado->checkI) printf("\nO vetor Intercalado ainda nao foi gerado.\n");
+            else listarVetor(vetorIntercalado, estado->tamI, "Intercalado");
+            break;
+
+        default:
+            printf("\nOpcao invalida.\n");
+    }
+}
+
+void opcaoSomar(Estado *estado) {
+    if (!estado->checkM || !estado->checkN) {
+        printf("Erro: crie os vetores M e N antes de soma-los.\n");
+        return;
+    }
+
+    if (estado->M != estado->N) {
+        printf("Erro: os vetores precisam ter o mesmo tamanho.\n");
+        printf("M possui %d elementos e N possui %d elementos.\n", estado->M, estado->N);
+        return;
+    }
+
+    somarVetores(vetorM, vetorN, vetorSoma, estado->M);
+    estado->checkS = 1;
+
+    printf("\nVetores somados com sucesso!\n");
+    listarVetor(vetorSoma, estado->M, "Soma");
+}
 
 void opcaoEscalar(Estado *estado) {
     char escolha;
@@ -221,11 +309,11 @@ void opcaoEscalar(Estado *estado) {
         printf("Digite o valor do escalar: ");
         scanf("%d", &escalar);
 
-        multiplicarVetorPorEscalar(vetM, vetEscalarM, estado->M, escalar);
+        multiplicarVetorPorEscalar(vetorM, vetorEscalarM, estado->M, escalar);
         estado->checkEM = 1;
 
         printf("\nVetor M multiplicado por %d com sucesso!\n", escalar);
-        listarVetor(vetEscalarM, estado->M, "EscalarM");
+        listarVetor(vetorEscalarM, estado->M, "EscalarM");
 
     } else if (escolha == 'N' || escolha == 'n') {
         if (!estado->checkN) {
@@ -236,79 +324,15 @@ void opcaoEscalar(Estado *estado) {
         printf("Digite o valor do escalar: ");
         scanf("%d", &escalar);
 
-        multiplicarVetorPorEscalar(vetN, vetEscalarN, estado->N, escalar);
+        multiplicarVetorPorEscalar(vetorN, vetorEscalarN, estado->N, escalar);
         estado->checkEN = 1;
 
         printf("\nVetor N multiplicado por %d com sucesso!\n", escalar);
-        listarVetor(vetEscalarN, estado->N, "EscalarN");
+        listarVetor(vetorEscalarN, estado->N, "EscalarN");
 
     } else {
         printf("\nOpcao invalida. Escolha M ou N.\n");
     }
-}
-
-void opcaoListar(Estado *estado){
-    char escolha;
-    printf("+-------------------------------------------------+\n");
-    printf("| LISTAR VETOR                                    |\n");
-    printf("+-------------------------------------------------+\n");
-    printf("Vetores disponiveis: [M] [N] [S]oma [E]scalar [U]nico [I]ntercalado\n");
-    printf("Escolha o vetor que deseja listar: ");
-    scanf(" %c", &escolha);
-
-    if(escolha=='M'||escolha=='m'){
-        if(estado->checkM==0) printf("O vetor M ainda nao foi preenchido.\n");
-        else listarVet(vetM,estado->M,"M");
-        return;
-    }
-
-    if(escolha=='N'||escolha=='N'){
-        if(estado->checkN==0) printf("\nO vetor N ainda nao foi preenchido.\n");
-        else listarVet(vetN,estado->N,"N");
-        return;
-    }else 
-    if(escolha=='S'|| escolha=='s'){
-        if(estado->checkS==0) printf("\nO vetor Soma ainda nao foi gerado\n");
-        else listarVet(vetSoma,estado->M,"Soma");
-        return;
-    }else 
-    if(escolha=='E'|| escolha=='e'){
-        char escalar;
-        printf("Escolha o Escalar [M/N/S]: ");
-        scanf("%d",&escalar);
-        
-        if(escalar=='M'||escalar=='m'){
-            if(estado->checkEM==0) printf("\nO vetor Escalar de M ainda nao foi gerado.\n");
-            else listarVet(vetEscalarM,estado->M,"EscalarM");
-        }else if(escalar=='N'||escalar=='n'){
-            if(estado->checkN==0) printf("\nO vetor Escalar de N ainda nao foi gerado.\n");
-            else listarVet(vetEscalarN,estado->N,"EscalarN");
-        }else if(escalar=='S'|| escalar=='s'){
-            if(estado->checkS==0)printf("\nO vetor Escalar de Soma ainda nao foi gerado.\n");
-            else listarVet(vetEscalarSoma,estado->M,"EscalarS");
-        }
-        else{
-            printf("\nOpcao invalida. Escolha M ou N\n");
-        }
-        return;
-    }else{
-        printf("\nOpcao invalida.\n");
-    }
-}
-
-void opcaoSomar(Estado *estado){
-    if(estado->checkM==0 ||estado->checkN==0){
-        printf("Erro: crie os vetores M e N antes de soma-los\n");
-        return ;
-    }else if(estado->M != estado->N){
-        printf("Erro: os vetores precisam ter o mesmo tamanho.\n");
-        printf("M possui %d elementos e N possui %d elementos.\n", estado->M, estado->N);
-        return;
-    }
-    somarVet(vetM,vetN,vetSoma,estado->M);
-    estado->checkS=1;
-    printf("\n Vetores armazenados com sucesso!\n");
-    listarVet(vetSoma,estado->M,"Soma");
 }
 
 void opcaoPesquisar(Estado *estado) {
@@ -386,6 +410,7 @@ void opcaoPesquisar(Estado *estado) {
     }
 }
 
+// [7]
 void opcaoGerarUnico(Estado *estado) {
     printf("+-------------------------------------------------+\n");
     printf("| VETOR UNICO (elementos exclusivos de M ou N)    |\n");
@@ -396,13 +421,14 @@ void opcaoGerarUnico(Estado *estado) {
         return;
     }
 
-    gerarVetUnico(vetM, estado->M, vetN, estado->N, vetUnico, &estado->tamU);
+    gerarVetorUnico(vetorM, estado->M, vetorN, estado->N, vetorUnico, &estado->tamU);
     estado->checkU = 1;
 
     printf("\nVetor gerado com sucesso!\n");
-    listarVetor(vetUnico, estado->tamU, "Unico");
+    listarVetor(vetorUnico, estado->tamU, "Unico");
 }
 
+// [8]
 void opcaoGerarIntercalado(Estado *estado) {
     printf("+-------------------------------------------------+\n");
     printf("| VETOR INTERCALADO (merge de M e N ordenados)    |\n");
@@ -413,55 +439,82 @@ void opcaoGerarIntercalado(Estado *estado) {
         return;
     }
 
-    if (!estaOrdenadoCrescente(vetM, estado->M) || !estaOrdenadoCrescente(vetN, estado->N)) {
+    if (!estaOrdenadoCrescente(vetorM, estado->M) || !estaOrdenadoCrescente(vetorN, estado->N)) {
         printf("Aviso: M e/ou N nao estao em ordem crescente.\n");
         printf("A intercalacao assume vetores ja ordenados; o resultado pode nao ficar ordenado.\n");
     }
 
-    intercalarVetoresOrdenados(vetM, estado->M, vetN, estado->N, vetIntercalado, &estado->tamI);
+    intercalarVetoresOrdenados(vetorM, estado->M, vetorN, estado->N, vetorIntercalado, &estado->tamI);
     estado->checkI = 1;
 
     printf("\nVetor gerado com sucesso!\n");
-    listarVetor(vetIntercalado, estado->tamI, "Intercalado");
+    listarVetor(vetorIntercalado, estado->tamI, "Intercalado");
 }
 
+// ----- Main -----
 
+int main() {
+    Estado estado = {0};
+    int menuEscolha = -1;
 
-int main(){
-
-    int menuEscolha=-1;
-
-    Estado estado={0}; // inicializa tudo dentro da struct com 0
-
-    while(menuEscolha!=9){
-
-        cls();
+    while (menuEscolha != 0) {
+        limparTela();
         menuPrincipal();
 
         printf("Escolha uma opcao: ");
-        scanf("%d",&menuEscolha);
+        scanf("%d", &menuEscolha);
 
-        cls();
+        limparTela();
 
-        switch (menuEscolha)
-        {
-        case 1:
-            estado.M=obterValorM();
-            estado.checkM=1;
-            break;
-        case 2:
-            estado.N=obterValorN();
-            estado.checkN=1;
-            break;
-        case 3:
-            opcaoListar(&estado);
-            break;
-        case 4:
-            
-        default:
-            break;
+        switch (menuEscolha) {
+            case 1:
+                estado.M = obterValorM();
+                estado.checkM = 1;
+                break;
+
+            case 2:
+                estado.N = obterValorN();
+                estado.checkN = 1;
+                break;
+
+            case 3:
+                opcaoListar(&estado);
+                break;
+
+            case 4:
+                opcaoSomar(&estado);
+                break;
+
+            case 5:
+                opcaoEscalar(&estado);
+                break;
+
+            case 6:
+                opcaoPesquisar(&estado);
+                break;
+
+            case 7:
+                opcaoGerarUnico(&estado);
+                break;
+
+            case 8:
+                opcaoGerarIntercalado(&estado);
+                break;
+
+            case 0:
+                break;
+
+            default:
+                printf("\nOpcao invalida. Tente novamente.\n");
         }
 
+        if (menuEscolha != 0) {
+            pausar();
+        }
     }
+
+    limparTela();
+    printf("\nPrograma encerrado!\n");
+
     return 0;
 }

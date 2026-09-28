@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 // vetores globais
 // fiz isso pois posso acessar os vetores de qualquer funcao
 int vetorM[30];
@@ -129,7 +128,7 @@ void menuPrincipal()
         "     - Elementos que aparecem em apenas um dos dois vetores\n\n"
         " [8] Gerar um vetor obtido pela intercalacao de dois outros vetores\n"
         "     - Ordenados em ordem crescente\n\n"
-        " [0] Sair\n"
+        " [9] Sair\n"
         "===============================================================\n");
 }
 
@@ -320,7 +319,7 @@ void opcaoListar(Estado *estado)
 
 void opcaoSomar(Estado *estado)
 {
-    if (estado->checkM==0 || !estado->checkN==0)
+    if (estado->checkM==0 || estado->checkN==0)
     {
         printf("Erro: crie os vetores M e N antes de soma-los.\n");
         return;
@@ -508,7 +507,6 @@ void opcaoPesquisar(Estado *estado)
     }
 }
 
-
 void opcaoGerarUnico(Estado *estado)
 {
     printf("+-------------------------------------------------+\n");
@@ -527,7 +525,6 @@ void opcaoGerarUnico(Estado *estado)
     printf("\nVetor gerado com sucesso!\n");
     listarVetor(vetorUnico, estado->tamU, "Unico");
 }
-
 
 void opcaoGerarIntercalado(Estado *estado)
 {
@@ -555,14 +552,12 @@ void opcaoGerarIntercalado(Estado *estado)
 }
 
 
-
-
 int main()
 {
-    Estado estado = {0};
+    Estado estado = {0}; // cria var do tipo Estado e inicializa tudo com 0
     int menuEscolha = -1;
 
-    while (menuEscolha != 0)
+    while (menuEscolha != 9)
     {
         cls();
         menuPrincipal();
@@ -608,14 +603,14 @@ int main()
             opcaoGerarIntercalado(&estado);
             break;
 
-        case 0:
+        case 9:
             break;
 
         default:
             printf("\nOpcao invalida. Tente novamente.\n");
         }
 
-        if (menuEscolha != 0)
+        if (menuEscolha != 9)
         {
             pausa();
         }

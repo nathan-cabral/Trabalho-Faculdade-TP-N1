@@ -33,8 +33,3 @@ OBS 4: Na função/ procedimento implementada para o item (2), a obtenção da q
 
 OBS 5: Na função/ procedimento implementada para o item (5), a obtenção do escalar deverá ser feita por uma outra função chamada a partir desta.
 
-
-# Duvidas:
-- 1 e 2: ler indice de um vetor M e N e dps ler todos os elementos?
-- 3: "Listar os elementos de um vetor de números inteiros" ? listar qual vetor? 
-- 5: "Gerar um segundo vetor obtido através da multiplicação de um escalar por um vetor de números inteiros" ? simplismente n entendi

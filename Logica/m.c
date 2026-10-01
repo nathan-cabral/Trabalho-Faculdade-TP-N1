@@ -86,7 +86,7 @@ int obterEscalar()
 
 // exibicao
 
-void listarVetor(int vetor[], int tamanho, const char *nomeVetor)
+void listarVetor(int vetor[], int tamanho, char *nomeVetor)
 {
     printf("\n+-------------------------------------------------+\n");
     printf("| ELEMENTOS DO VETOR %-28s|\n", nomeVetor);
